@@ -18,3 +18,4 @@ src/yarn-error.log
 # Docker関連（あれば）
 docker/mysql/data/
 docker-compose.override.yml
+node_modules

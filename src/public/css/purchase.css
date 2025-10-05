@@ -1,0 +1,132 @@
+.buy form{
+    display: flex;
+    justify-content: center;
+    margin: 40px auto;
+    max-width: 1000px;
+}
+
+.input {
+    flex: 1;
+    margin-right: 40px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.item__img {
+    width: 160px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+}
+
+.item__img img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.item__info {
+    margin-left: 20px;
+}
+
+.item__info-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.item__info-price {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.pay .text,
+.address__text .text {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.pay__payment select {
+    margin-left: 50px;
+    width: 240px;
+    padding: 6px;
+    border: 1px solid #ccc;
+}
+
+.error{
+    color:#f00;
+}
+
+.address__text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.address__change {
+    color: #0073e6;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.address__info {
+    margin-top: 20px;
+    margin-left:50px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.6;
+}
+
+.result {
+    flex: 0 0 300px;
+}
+
+.box {
+    border: 1px solid #333;
+    margin-bottom: 20px;
+}
+
+.box__price,
+.box__pay {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid #333;
+}
+
+.box__pay {
+    border-bottom: none;
+}
+
+.box-text {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.box-price,
+.box-pay {
+    font-size: 16px;
+}
+
+.result button {
+    width: 100%;
+    background: #f66;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 14px;
+    border: none;
+    cursor: pointer;
+}

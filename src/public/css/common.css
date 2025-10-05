@@ -1,20 +1,82 @@
 .header {
     background-color: #000;
-    margin: 0 auto;
-    max-width: 1230px;
-    max-height: 40px;
+    padding: 10px 20px;
 }
 
 .header-nav {
-    margin: 0;
-    max-width: 1230px;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    min-width: 700px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.logo {
+    height: 30px;
 }
 
 .header-nav__log{
-    color:#fff;
-    line-height: 0%;
-    text-align: left;
+    margin-left: 10px;
+}
+
+.header-find {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.header-find form {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+}
+
+.find_bar {
+    flex: 1;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    font-size: 14px;
+    min-width: 150px;
+}
+
+.find_button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+}
+
+.header-nav__button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    margin-left: 10px;
+}
+
+.header-nav__text a,
+.header-nav__text button {
+    color: #fff !important;
+    font-size: 14px;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.header-nav__sell a {
+    background-color: #fff;
+    padding: 6px 14px;
+    border-radius: 4px;
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
     font-weight: bold;
-    font-size: 24px;
+    border: 1px solid #ccc;
 }

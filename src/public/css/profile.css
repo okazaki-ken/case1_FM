@@ -1,11 +1,86 @@
 .profile {
+    max-width: 700px;
     position: absolute;
-    top: 50px;
+    top: 80px;
     left: 50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%);
 }
 
 .profile-heading {
     text-align: center;
+    font-weight: bold;    
+}
+
+.form__group {
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 700px;
+}
+
+.form__group-title {
+    margin-bottom: 8px;
     font-weight: bold;
+}
+
+.form__input--text input {
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.form__input--file {
+    display: none;
+}
+
+.form__input--file-label{
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid #ff5555;
+    color: #ff5555;
+    background-color: #fff;
+    border-radius :3px;
+    cursor:pointer;
+    font-size: 14px;
+}
+
+.form__input--file-label:hover{
+    background-color: #ffe5e5;
+}
+
+.form__image-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: #ccc;
+}
+
+.form__button {
+    background-color: #ff5555;
+    color: #fff;
+    text-align: center;
+    padding: 8px;
+    margin-top: 30px;
+    width: 100%;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.login__link {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.form__error{
+    color: #f00;
 }

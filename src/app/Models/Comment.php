@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
+
+    protected $guarded = array('id');  
+    protected $fillable =[
+        'user_id',
+        'item_id',
+        'body',
+    ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function item(){
+        return $this->belongsTo(Item::class);
+    }
 }

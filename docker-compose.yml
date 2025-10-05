@@ -13,6 +13,8 @@ services:
         build: ./docker/php
         volumes:
             - ./src:/var/www/
+        depends_on:
+            - mysql
 
     mysql:
         image: mysql:8.0
@@ -26,6 +28,7 @@ services:
         volumes:
             - ./docker/mysql/data:/var/lib/mysql
             - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+        container_name: mysql
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -38,3 +41,13 @@ services:
             - mysql
         ports:
             - 8080:80
+
+    mailhog:
+      image: mailhog/mailhog
+      ports:
+        - "1025:1025"
+        - "8025:8025"
+        
+
+volumes:
+    mysql_data:
