@@ -46,10 +46,9 @@ php artisan db:seed
 ```
 
 8. 画像保存と公開設定
-アプリでは商品画像やプロフィール画像を `storage/app/public` に保存しています。  
-公開のためには以下のコマンドでシンボリックリンクを作成してください。
-``` bash
+```bash
 php artisan storage:link
+cp -r public/images/items storage/app/public/
 ```
 
 **開発用メール確認**
@@ -86,6 +85,9 @@ Laravel は .env 設定に従って MailHog にメール送信します。
 Laravel環境構築手順の  
 「6. マイグレーション実行」「7. シーディング実行」により  
 ダミーデータが生成されます。
+また、本アプリでは、ダミー商品画像を `public/images/items` に同梱しています。
+「8. 画像保存と公開設定」を実行し、
+画像を Laravel の公開ストレージへコピーしてください。
 
 ## Stripe設定
 本アプリケーションでは、決済処理に [Stripe](https://stripe.com/jp) を使用しています。  
