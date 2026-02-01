@@ -1,126 +1,169 @@
-.profile {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
+* {
+  box-sizing: border-box;
 }
 
-.profile__left {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+.mypage {
+  width: 100%;
 }
 
-.profile-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #ccc;
-    object-fit: cover;
+.mypage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  gap: 20px;
 }
 
-
-
-.profile__name {
-    font-size: 20px;
-    font-weight: bold;
+.mypage-user {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.profile__edit {
-    display: inline-block;
-    padding: 6px 12px;
-    border: 1px solid #f00;
-    color: #f00;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 14px;
-    margin-right: 20px;
+.mypage-user__avatar-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #ccc;
 }
 
-.profile__edit:hover {
-    background-color: #f00;
-    color: #fff;
+.mypage-user__avatar-img--empty {
+  background: #ccc;
 }
 
-.profile__link a {
-    display: inline-block;
-    padding: 6px 12px;
-    border: 1px solid #f00;
-    color: #f00;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 14px;
+.mypage-user__name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
 }
 
-.profile__link a:hover {
-    background-color: #f00;
-    color: #fff;
+.mypage-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
 }
 
-.top {
-    display: flex;
-    margin: 20px auto 5px 20px;
-    gap: 30px;
+.mypage-rating__star {
+  display: inline-flex;
+  align-items: center;
 }
 
-.top a {
-    text-decoration: none;
-    color: #5f5f5f;
+.mypage-rating__star img {
+  width: 30px;
+  height: auto;
+  display: block;
 }
 
-.top a.active {
-    color: #f00;
-    font-weight: bold;
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.2;
 }
 
-.divider {
-    border: none;
-    border-top: 1px solid #878787;
-    margin: 0;
-    width: 100%;
+.btn--outline-danger {
+  border: 1px solid #f00;
+  color: #f00;
+  background: transparent;
 }
 
-.item {
-    margin-top: 40px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: flex-start;
+.btn--outline-danger:hover {
+  background: #f00;
+  color: #fff;
 }
 
-.item__image {
-    position: relative;
-    overflow: hidden;
-    margin-left: 30px;
+.mypage-tabs {
+  display: flex;
+  gap: 30px;
+  margin: 20px 0 5px 20px;
 }
 
-.item__image img {
-    width: 200px;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: 8px;
+.mypage-tabs__link {
+  text-decoration: none;
+  color: #5f5f5f;
+  position: relative;
 }
 
-.item__name {
-    width: 200px;
-    margin-top: 5px;
-    font-size: 14px;
-    text-align: left;
+.mypage-tabs__link.is-active {
+  color: #f00;
+  font-weight: 700;
 }
 
-.item__soldout {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    color: red;
-    font-size: 20px;
-    font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 2px 6px;
-    border-radius: 4px;
-    text-shadow:
-        -1px -1px 0 #fff,
-        1px -1px 0 #fff,
-        -1px 1px 0 #fff,
-        1px 1px 0 #fff;
+.mypage-tabs__badge {
+  margin-left: 8px;
+  transform: translateY(-1px);
+}
+
+.mypage-divider {
+  border: none;
+  border-top: 1px solid #878787;
+  margin: 0;
+  width: 100%;
+}
+
+.mypage-grid {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  padding-left: 30px;
+}
+
+.mypage-empty {
+  margin-left: 10px;
+  color: #5f5f5f;
+}
+
+.card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card__thumb {
+  position: relative;
+  width: 200px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.card__img {
+  width: 200px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.card__title {
+  width: 200px;
+  margin-top: 6px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #ff3b3b;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.badge--on-image {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
 }

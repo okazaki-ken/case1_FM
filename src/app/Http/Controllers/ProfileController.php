@@ -4,75 +4,130 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Address;
 use App\Models\Item;
+use App\Models\Rating;
+use App\Models\Order;
+use App\Models\OrderMessage;
 use App\Http\Requests\ProfileRequest;
-use App\Http\Requests\AuthorRequest;
 
 class ProfileController extends Controller
 {
-    //プロフィール設定画面の表示
-     public function edit(Request $request){
-        $user = Auth::user(); 
+    public function edit(Request $request)
+    {
+        $user = Auth::user();
         $address = Address::firstOrNew(['user_id' => $user->id]);
+
+        $avgScore = Rating::where('ratee_id', $user->id)->avg('score');
+        $avgRating = $avgScore !== null ? (int) round($avgScore) : null;
+
         return view('profile', [
-            'user'=>$user,
-            'redirect'=>$request->query('redirect','/')
+            'user'      => $user,
+            'redirect'  => $request->query('redirect', '/'),
+            'avgRating' => $avgRating,
         ]);
     }
-    
-    //プロフィール  の更新
+
     public function update(ProfileRequest $request)
     {
         $user = Auth::user();
-
-        // usersテーブルの名前更新
-        $user->name = $request->name;
-        $user->save();
+        $user->update([
+            'name' => $request->name,
+        ]);
 
         $address = Address::firstOrNew(['user_id' => $user->id]);
 
         if ($request->hasFile('profile_image')) {
             $file = $request->file('profile_image');
-            $extension = $file->extension();
-            $filename = $user->id . '.' . $extension;
+            $filename = $user->id . '.' . $file->extension();
 
-            // storage/app/public/profiles に保存
             $file->storeAs('profiles', $filename, 'public');
             $address->profile_image = 'profiles/' . $filename;
         }
 
-        // Address テーブル更新または作成
-        $address->post = $request->post;
-        $address->address = $request->address;
-        $address->building = $request->building;
-        $address->user_id = $user->id;
-        $address->save();
+        $address->fill([
+            'post'     => $request->post,
+            'address'  => $request->address,
+            'building' => $request->building,
+            'user_id'  => $user->id,
+        ])->save();
 
-        $redirectTo = $request->input('redirect', '/');
-        return redirect($redirectTo);
+        return redirect($request->input('redirect', '/'));
     }
 
-    //プロフィール画面の表示
-    public function show(Request $request){
+    public function show(Request $request)
+    {
+        $user = Auth::user();
+        $type = $request->query('type', 'listed');
 
-        $user=Auth::user();
+        $avgScore = Rating::where('ratee_id', $user->id)->avg('score');
+        $avgRating = $avgScore !== null ? (int) round($avgScore) : null;
 
-        $type = $request->query('type','selling');
-        
-        if ($type === 'purchased'){
-            $items =Item::whereIn('id',function($query) use($user){
-                $query->select('item_id')
-                    ->from('orders')
-                    ->where('user_id',$user->id);
-            })->get();
-        }else{
-            $items =Item::Where('user_id',$user->id)->get();
+        $unreadCount = OrderMessage::whereNull('read_at')
+            ->where('user_id', '!=', $user->id)
+            ->whereHas('order', function ($q) use ($user) {
+                $q->where('user_id', $user->id)
+                  ->orWhere('buyer_id', $user->id);
+            })
+            ->count();
+
+        if ($type === 'listed') {
+            $items = Item::where('user_id', $user->id)
+                ->doesntHave('order')
+                ->get();
+
+            return view('mypage', compact(
+                'items',
+                'user',
+                'type',
+                'avgRating',
+                'unreadCount'
+            ));
         }
 
-                return view('mypage',compact('items','user','type'));
+        if ($type === 'purchased') {
+            $items = Item::whereIn('id', function ($q) use ($user) {
+                $q->select('item_id')
+                  ->from('orders')
+                  ->where('buyer_id', $user->id)
+                  ->where('status', 'completed');
+            })->get();
+
+            return view('mypage', compact(
+                'items',
+                'user',
+                'type',
+                'avgRating',
+                'unreadCount'
+            ));
+        }
+
+        if ($type === 'trading') {
+            $orders = Order::with('item')
+                ->where('status', 'purchased')
+                ->where(function ($q) use ($user) {
+                    $q->where('user_id', $user->id)
+                      ->orWhere('buyer_id', $user->id);
+                })
+                ->withCount([
+                    'messages as unread_count' => function ($q) use ($user) {
+                        $q->whereNull('read_at')
+                          ->where('user_id', '!=', $user->id);
+                    },
+                ])
+                ->get();
+
+            return view('mypage', compact(
+                'orders',
+                'user',
+                'type',
+                'avgRating',
+                'unreadCount'
+            ));
+        }
+
+        abort(404);
     }
 }

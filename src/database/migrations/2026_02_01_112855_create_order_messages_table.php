@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAddressesTable extends Migration
+class CreateOrderMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('order_messages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id');
             $table->foreignId('user_id');
-            $table->string('post');
-            $table->string('address');
-            $table->string('building')->nullable();
-            $table->string('profile_image')->nullable();
+            $table->string('body')->nullable();
+            $table->string('image_path')->nullable();
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +31,8 @@ class CreateAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('addresses');
+        Schema::table('order_messages', function (Blueprint $table) {
+            $table->dropColumn('image_path');
+        });
     }
 }

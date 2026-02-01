@@ -15,13 +15,15 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('item_id');
+            $table->foreignId('user_id');
+            $table->foreignId('item_id');
             $table->string('shipping_post');
             $table->string('shipping_address');
             $table->string('shipping_building')->nullable();
             $table->string('payment_method');
             $table->string('stripe_id')->nullable();
+            $table->foreignId('buyer_id')->nullable();
+            $table->string('status')->default('listed');            
             $table->timestamps();
         });
     }

@@ -51,6 +51,7 @@ php artisan db:seed
 ``` bash
 php artisan storage:link
 ```
+
 **開発用メール確認**
 本アプリでは、会員登録時にメール認証を行います。
 Docker コンテナで MailHog が既に設定されている場合、起動するだけで利用可能です。
@@ -61,6 +62,30 @@ http://localhost:8025
 
 Laravel は .env 設定に従って MailHog にメール送信します。
 注意: 本番運用では MailHog は使用せず、SMTP サーバーを使用してください。
+
+## 開発用ダミーログイン情報
+※ 開発・確認用のため、本番環境では使用しないでください。
+※ 管理者・一般ユーザーで表示内容や操作権限が異なります。
+
+### ユーザーログイン
+- URL：http://localhost/login
+
+- 名前：ユーザー1
+- Email：seller1@example.com
+- Password：password
+
+- 名前：ユーザー2
+- Email：seller2@example.com
+- Password：password
+
+- 名前：ユーザー3
+- Email：user@example.com
+- Password：password
+
+### ダミーデータ生成方法
+Laravel環境構築手順の  
+「6. マイグレーション実行」「7. シーディング実行」により  
+ダミーデータが生成されます。
 
 ## Stripe設定
 本アプリケーションでは、決済処理に [Stripe](https://stripe.com/jp) を使用しています。  
@@ -80,9 +105,12 @@ STRIPE_SECRET=sk_test_xxxxxxxxxxxxx
 
 
 ## 使用技術(実行環境)
-・PHP 8.0
-・Larabel 10.0
+・PHP 8.2
+・Larabel 10.x
 ・MySQL 8.0
+・Blade / HTML / CSS
+・JavaScript（Vanilla JS）
+・MailHog（開発用メール確認）
 
 ## ER図
 ![alt](er.png)
@@ -92,11 +120,5 @@ STRIPE_SECRET=sk_test_xxxxxxxxxxxxx
 - phpMyAdmin:：http://localhost:8080/
 
 ##　他
-・購入実施後は購入実施後は遷移先の指定がなかったため
-　「購入ありがとうございました」との表示と商品一覧に戻るリンクの表示があるページに遷移します。
-・ヘッダーのマイページ遷移時と、商品詳細画面から購入画面遷移時に
-　未ログイン時はログイン画面に遷移します。
-・上記より、購入画面はログインが必須、ログイン後に住所入力が必須のため、
-　購入画面での住所必須のバリデーションは設けてません
-・購入済みの商品は商品詳細画面にて、購入のボタンが「購入済み」と表示され
-　それより先の画面に遷移できないようになってます。
+- 仕様書にのっとり、ユーザー1とユーザー2は各5商品を出品しています。
+- ユーザー3は出品を行いません。

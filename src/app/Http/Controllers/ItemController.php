@@ -185,18 +185,21 @@ class ItemController extends Controller
 
         // metadata から必要情報を取得
         $metadata = $session->metadata;
+        $item = Item::findOrFail($metadata->item_id);
 
         // すでに Order が作られていれば二重作成を防止
         $existingOrder = Order::where('stripe_id', $session->payment_intent)->first();
         if (!$existingOrder) {
             Order::create([
-                'item_id' => $metadata->item_id,
-                'user_id' => $metadata->user_id,
+                'item_id' => $item->id,
+                'user_id' => $item->user_id,
                 'shipping_post' => $metadata->shipping_post,
                 'shipping_address' => $metadata->shipping_address,
                 'shipping_building' => $metadata->shipping_building,
                 'payment_method' => $metadata->payment_method,
                 'stripe_id' => $session->payment_intent,
+                'buyer_id' =>$metadata->user_id,
+                'status'=>"purchased",
             ]);
         }
 
