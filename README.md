@@ -4,7 +4,8 @@
 **Dockerビルド**
 1. `git clone https://github.com/okazaki-ken/case1_FM.git`
 2. DockerDesktopアプリを立ち上げる
-3. `docker-compose up -d --build`
+3. `cd case1_FM`
+4. `docker-compose up -d --build`
 
 ＊MySQLは、OSによって起動しない場合があるので、それぞれのPCに併せてdocker-compose.ymlファイルを編集してください。
 
@@ -47,8 +48,8 @@ php artisan db:seed
 
 8. 画像保存と公開設定
 ```bash
-php artisan storage:link
 cp -r public/images/items storage/app/public/
+php artisan storage:link
 ```
 
 **開発用メール確認**
@@ -64,7 +65,6 @@ Laravel は .env 設定に従って MailHog にメール送信します。
 
 ## 開発用ダミーログイン情報
 ※ 開発・確認用のため、本番環境では使用しないでください。
-※ 管理者・一般ユーザーで表示内容や操作権限が異なります。
 
 ### ユーザーログイン
 - URL：http://localhost/login
@@ -73,9 +73,11 @@ Laravel は .env 設定に従って MailHog にメール送信します。
 - Email：seller1@example.com
 - Password：password
 
+
 - 名前：ユーザー2
 - Email：seller2@example.com
 - Password：password
+
 
 - 名前：ユーザー3
 - Email：user@example.com
@@ -100,7 +102,7 @@ StripeのAPIキーは 各自のアカウントで取得 し、`.env` ファイ�
 
 **`.env` ファイルへの設定**
 以下の環境変数を `.env` に追加してください：
-` ```env`
+```env
 STRIPE_KEY=pk_test_xxxxxxxxxxxxx
 STRIPE_SECRET=sk_test_xxxxxxxxxxxxx
 ※ pk_test_xxxxxxxxxxxxx / sk_test_xxxxxxxxxxxxx は Stripe ダッシュボードで取得したキーに置き換えてください。
@@ -121,7 +123,7 @@ STRIPE_SECRET=sk_test_xxxxxxxxxxxxx
 - 開発環境：http://localhost/
 - phpMyAdmin:：http://localhost:8080/
 
-##　他
+## 他
 - 仕様書にのっとり、ユーザー1とユーザー2は各5商品を出品しています。
 - ユーザー3は出品を行いません。
 - 仕様書とは異なりますが、取引完了時の評価にキャンセルボタンがございます。
