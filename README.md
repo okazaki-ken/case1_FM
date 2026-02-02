@@ -1,4 +1,4 @@
-# mogitate(商品管理ページ)
+# フリマアプリ(商品管理ページ)
 
 ## 環境構築
 **Dockerビルド**
@@ -48,8 +48,14 @@ php artisan db:seed
 
 8. 画像保存と公開設定
 ```bash
-cp -r public/images/items storage/app/public/
+# 公開ストレージを作成
 php artisan storage:link
+
+# 画像保存用ディレクトリを作成
+mkdir -p storage/app/public/images/items
+
+# ダミー画像をコピー
+cp -r public/images/items/* storage/app/public/images/items/
 ```
 
 **開発用メール確認**

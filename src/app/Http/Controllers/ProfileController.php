@@ -105,7 +105,8 @@ class ProfileController extends Controller
         }
 
         if ($type === 'trading') {
-            $orders = Order::with('item')
+            $orders = Order::query()
+                ->with('item')
                 ->where('status', 'purchased')
                 ->where(function ($q) use ($user) {
                     $q->where('user_id', $user->id)
@@ -117,6 +118,14 @@ class ProfileController extends Controller
                           ->where('user_id', '!=', $user->id);
                     },
                 ])
+                ->withMax([
+                    'messages as partner_last_message_at' => function ($q) use ($user) {
+                        $q->where('user_id', '!=', $user->id);
+                    },
+                ], 'created_at')
+                ->orderByRaw('partner_last_message_at IS NULL ASC')
+                ->orderByDesc('partner_last_message_at')
+                ->orderByDesc('updated_at')
                 ->get();
 
             return view('mypage', compact(
